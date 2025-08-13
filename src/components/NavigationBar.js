@@ -10,7 +10,7 @@ const NavigationBar = () => {
         <div className="flex justify-between h-16 items-center">
           {/* Logo / Brand */}
           <div className="text-2xl font-bold">
-            <NavLink to="/" className="hover:text-yellow-300">
+            <NavLink to="/" >
               Home Stock
             </NavLink>
           </div>

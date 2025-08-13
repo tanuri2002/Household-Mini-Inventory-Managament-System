@@ -11,7 +11,7 @@ function Login() {
     // Example: console.log("Form submitted!");
 
     // After successful submission, navigate to /login
-    navigate("/dashboard");
+    navigate("/home");
   };
   return (
     <div className="flex h-screen  bg-gray-100">
