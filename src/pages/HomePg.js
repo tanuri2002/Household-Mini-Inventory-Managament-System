@@ -24,10 +24,32 @@ function HomePg() {
         </div>
       </section>
 
+       {/* Content Section with a background image & blurred box */}
+        <section
+          className="relative mt-16 bg-cover bg-center py-28 px-6 md:px-20 rounded-2xl "
+          style={{
+            backgroundImage: "url('/images/pic6.jpg')"
+        }}
+>
+        {/* Blur Box */}
+        <div className="max-w-2xl mx-auto bg-white/30 backdrop-blur-md p-10 rounded-2xl shadow-lg text-center">
+          <h2 className="text-2xl font-bold text-white mb-4">
+            Secure, Organized & Always Accessible
+          </h2>
+          <p className="text-black mb-6">
+            Your household inventory is stored safely in the cloud, accessible from any device at any time.
+          </p>
+          <button className="bg-teal-500 text-white px-6 py-2 rounded-full hover:bg-teal-600">
+            Get Started
+          </button>
+        </div>
+      </section>
+
+      
       {/* Features Section */}
-      <section className='mx-20'>
+      <section className='mx-20 my-20'>
         <h2 className="text-xl font-semibold text-teal-600 mb-8">
-          What You Can Do From HomeStock?
+          Why HomeStock?
         </h2>
        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
         

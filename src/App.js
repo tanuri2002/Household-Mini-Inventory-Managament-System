@@ -8,19 +8,22 @@ import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import Dashboard from "./pages/Dashboard";
+import AddItem from './pages/AddItem';
+
 const App = () => {
   return (
     <BrowserRouter>
       <div>
         <NavigationBar />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomePg />} />
           <Route path="/homepg" element={<HomePg />} />
           <Route path="/about" element={<About />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/additem" element={<AddItem />} />
         </Routes>
       </div>
     </BrowserRouter>
