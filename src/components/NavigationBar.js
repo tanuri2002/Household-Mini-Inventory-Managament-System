@@ -46,7 +46,7 @@ const NavigationBar = () => {
           {/* Menu items */}
           <div className={`sm:flex sm:items-center ${isOpen ? "block" : "hidden"}`}>
             <NavLink
-              to="/home"
+              to="/homePg"
               className={({ isActive }) =>
                 (isActive ? "underline " : "") +
                 "block px-3 py-2 rounded hover:bg-gray-500"

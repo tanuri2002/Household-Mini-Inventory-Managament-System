@@ -20,7 +20,7 @@ function Home(){
       
 
       {/* Card Section */}
-      <section className="grid grid-cols-1 md:grid-cols-2 gap-16 mx-80">
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto px-4">
         {/* Card 1 */}
             <a href="/dashboard"><div className="bg-teal-50 shadow-lg p-10 rounded-3xl text-gray-700 hover:scale-105 hover:-translate-y-2 transition-transform duration-300 ease-in-out hover:bg-teal-100 flex flex-col">
                 <MdOutlineDashboard  size={30} className="mb-4 text-gray-600" />

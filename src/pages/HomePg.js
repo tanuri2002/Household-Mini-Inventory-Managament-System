@@ -33,7 +33,7 @@ function HomePg() {
 >
         {/* Blur Box */}
         <div className="max-w-2xl mx-auto bg-white/30 backdrop-blur-md p-10 rounded-2xl shadow-lg text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">
+          <h2 className="text-2xl font-bold text-black mb-4">
             Secure, Organized & Always Accessible
           </h2>
           <p className="text-black mb-6">
