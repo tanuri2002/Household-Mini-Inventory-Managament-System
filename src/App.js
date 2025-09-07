@@ -9,11 +9,13 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Dashboard from "./pages/Dashboard";
 import AddItem from './pages/AddItem';
+import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
   return (
     <BrowserRouter>
       <div>
+        <AuthProvider>
         <NavigationBar />
         <Routes>
           <Route path="/" element={<HomePg />} />
@@ -25,6 +27,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/additem" element={<AddItem />} />
         </Routes>
+        </AuthProvider>
       </div>
     </BrowserRouter>
   );

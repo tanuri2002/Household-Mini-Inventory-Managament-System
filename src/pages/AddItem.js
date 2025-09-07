@@ -162,7 +162,7 @@ function AddItem() {
             {/* Lower part - text box */}
           <div className="w-full h-1/2 flex justify-center">
             <p className="w-3/4 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600"
-            Tips for Inventory Management
+            Tips for Inventory Management 
             Set realistic minimum stock thresholds to avoid running out of essential items
             Regularly update item details to keep your inventory accurate and organized
             Group similar items in the same category for easier management            

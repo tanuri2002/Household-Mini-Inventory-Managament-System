@@ -1,18 +1,35 @@
-import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 
 const NavigationBar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState(null);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const storedUsername = localStorage.getItem("username");
+    setIsLoggedIn(!!token);
+    setUsername(storedUsername);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    setIsLoggedIn(false);
+    setUsername(null);
+    navigate("/login");
+  };
 
   return (
     <nav className="bg-teal-600 text-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
-          {/* Logo / Brand */}
+          {/* Logo */}
           <div className="text-2xl font-bold">
-            <NavLink to="/" >
-              Home Stock
-            </NavLink>
+            <NavLink to="/">Home Stock</NavLink>
           </div>
 
           {/* Hamburger for mobile */}
@@ -23,10 +40,7 @@ const NavigationBar = () => {
               className="focus:outline-none"
               aria-label="Toggle menu"
             >
-              <svg
-                className="h-8 w-8 fill-current"
-                viewBox="0 0 24 24"
-              >
+              <svg className="h-8 w-8 fill-current" viewBox="0 0 24 24">
                 {isOpen ? (
                   <path
                     fillRule="evenodd"
@@ -44,7 +58,10 @@ const NavigationBar = () => {
           </div>
 
           {/* Menu items */}
-          <div className={`sm:flex sm:items-center ${isOpen ? "block" : "hidden"}`}>
+          <div
+            className={`sm:flex sm:items-center ${isOpen ? "block" : "hidden"} space-x-2`}
+          >
+            {/* Public links */}
             <NavLink
               to="/homePg"
               className={({ isActive }) =>
@@ -63,24 +80,72 @@ const NavigationBar = () => {
             >
               About
             </NavLink>
-            <NavLink
-              to="/signup"
-              className={({ isActive }) =>
-                (isActive ? "underline " : "") +
-                "block px-3 py-2 rounded hover:bg-gray-500"
-              }
-            >
-              Sign Up
-            </NavLink>
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                (isActive ? "underline " : "") +
-                "block px-3 py-2 rounded hover:bg-gray-500"
-              }
-            >
-              Login
-            </NavLink>
+
+            {/* Dashboard only visible after login */}
+            {isLoggedIn && (
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  (isActive ? "underline " : "") +
+                  "block px-3 py-2 rounded hover:bg-gray-500"
+                }
+              >
+                Dashboard
+              </NavLink>
+            )}
+
+            {/* Auth-based links */}
+            {!isLoggedIn ? (
+              <>
+                <NavLink
+                  to="/signup"
+                  className={({ isActive }) =>
+                    (isActive ? "underline " : "") +
+                    "block px-3 py-2 rounded hover:bg-gray-500"
+                  }
+                >
+                  Sign Up
+                </NavLink>
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    (isActive ? "underline " : "") +
+                    "block px-3 py-2 rounded hover:bg-gray-500"
+                  }
+                >
+                  Login
+                </NavLink>
+              </>
+            ) : (
+              <div className="relative">
+                {/* Username button */}
+                <button
+                  onClick={() => setDropdownOpen(!dropdownOpen)}
+                  className="px-3 py-2 rounded hover:bg-gray-500 flex items-center"
+                >
+                  👨🏻‍💼 {username}
+                </button>
+
+                {/* Dropdown menu */}
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-md">
+                    <NavLink
+                      to="/profile"
+                      className="block px-4 py-2 hover:bg-gray-200"
+                      onClick={() => setDropdownOpen(false)}
+                    >
+                      Profile
+                    </NavLink>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 hover:bg-gray-200"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>

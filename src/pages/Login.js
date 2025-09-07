@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import userService from "../services/userService";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
+  const { login } = useAuth();   // 👈 get login from context
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ email: "", password: "" });
 
@@ -11,22 +13,27 @@ function Login() {
     setCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    userService
-      .login(credentials)
-      .then(() => {
-        alert("Login successful!");
-        navigate("/additem");
-      })
-      .catch((error) => {
-        console.error("Login error:", error);
-        alert(
-          "Login failed: " +
-            (error.response?.data?.message || "Unknown error. Check console.")
-        );
-      });
+    try {
+      const response = await userService.login(credentials);
+
+      // assume your backend sends back { token, username }
+      const { token, username } = response;
+
+      // update context + localStorage
+      login(token, username);
+
+      alert("Login successful!");
+      navigate("/homePg");  // 👈 redirect after login
+    } catch (error) {
+      console.error("Login error:", error);
+      alert(
+        "Login failed: " +
+          (error.response?.data?.message || "Unknown error. Check console.")
+      );
+    }
   };
 
   return (
