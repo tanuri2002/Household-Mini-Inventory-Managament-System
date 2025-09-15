@@ -3,8 +3,13 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { MdInventory } from "react-icons/md";
 import { RiLogoutBoxRLine } from "react-icons/ri";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate} from "react-router-dom";
 
 function Home(){
+    const navigate = useNavigate();
+    const {logout} = useAuth();
+
     return(
         <div className="px-6 md:px-20 py-20">
 
@@ -40,11 +45,16 @@ function Home(){
                 <p className="text-left text-xs">Browse and manage your current inventory</p>
             </div>
         {/* Card 4 */}
-            <a href="/homepg"><div className="bg-teal-50 shadow-lg p-10 rounded-3xl text-gray-700 hover:scale-105 hover:-translate-y-2 transition-transform duration-300 ease-in-out hover:bg-teal-100 flex flex-col">
-                <RiLogoutBoxRLine size={30} className="mb-4 text-gray-600" />
+            <div className="bg-teal-50 shadow-lg p-10 rounded-3xl text-gray-700 hover:scale-105 hover:-translate-y-2 transition-transform duration-300 ease-in-out hover:bg-teal-100 flex flex-col cursor-pointer"
+                  onClick={() => {
+                      logout();          
+                      navigate("/login"); 
+        }}
+    >
+            <RiLogoutBoxRLine size={30} className="mb-4 text-gray-600" />
                 <div className="text-left font-semibold">Logout</div>
                 <p className="text-left text-xs">Securely sign out from your account</p>
-            </div></a>
+            </div>
       </section>
 
       </div>

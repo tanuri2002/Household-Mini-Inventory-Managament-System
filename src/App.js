@@ -9,6 +9,7 @@ import Login from './pages/Login';
 import Home from './pages/Home';
 import Dashboard from "./pages/Dashboard";
 import AddItem from './pages/AddItem';
+import Footer from './components/Footer';
 import { AuthProvider } from "./context/AuthContext";
 
 const App = () => {
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/additem" element={<AddItem />} />
         </Routes>
+        <Footer/>
         </AuthProvider>
       </div>
     </BrowserRouter>

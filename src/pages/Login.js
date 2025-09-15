@@ -4,7 +4,7 @@ import userService from "../services/userService";
 import { useAuth } from "../context/AuthContext";
 
 function Login() {
-  const { login } = useAuth();   // 👈 get login from context
+  const { login } = useAuth();   
   const navigate = useNavigate();
   const [credentials, setCredentials] = useState({ email: "", password: "" });
 
@@ -26,7 +26,7 @@ function Login() {
       login(token, username);
 
       alert("Login successful!");
-      navigate("/homePg");  // 👈 redirect after login
+      navigate("/home");  
     } catch (error) {
       console.error("Login error:", error);
       alert(

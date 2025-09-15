@@ -1,27 +1,39 @@
-import React, { useState, useEffect } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+// NavigationBar.js
+import React, { useState, useEffect, useRef } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import { RiAccountCircleLine } from "react-icons/ri";
 
 const NavigationBar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [username, setUsername] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const dropdownRef = useRef(null);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const storedUsername = localStorage.getItem("username");
-    setIsLoggedIn(!!token);
-    setUsername(storedUsername);
-  }, []);
+  const { isLoggedIn, username, logout } = useAuth();
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("username");
-    setIsLoggedIn(false);
-    setUsername(null);
+    logout();
     navigate("/login");
   };
+
+  // Close dropdown on route change
+  useEffect(() => {
+    setDropdownOpen(false);
+  }, [location]);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <nav className="bg-teal-600 text-white shadow-md">
@@ -61,7 +73,6 @@ const NavigationBar = () => {
           <div
             className={`sm:flex sm:items-center ${isOpen ? "block" : "hidden"} space-x-2`}
           >
-            {/* Public links */}
             <NavLink
               to="/homePg"
               className={({ isActive }) =>
@@ -74,7 +85,7 @@ const NavigationBar = () => {
             <NavLink
               to="/about"
               className={({ isActive }) =>
-                (isActive ? "underline " : "") +
+                (isActive ? "underline" : "") +
                 "block px-3 py-2 rounded hover:bg-gray-500"
               }
             >
@@ -117,16 +128,14 @@ const NavigationBar = () => {
                 </NavLink>
               </>
             ) : (
-              <div className="relative">
-                {/* Username button */}
+              <div className="relative" ref={dropdownRef}>
                 <button
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  className="px-3 py-2 rounded hover:bg-gray-500 flex items-center"
+                  className="px-3 py-2 rounded hover:bg-gray-500 flex items-center space-x-2"
                 >
-                  👨🏻‍💼 {username}
+                  <RiAccountCircleLine size={24} />
+                  <span>{username}</span>
                 </button>
-
-                {/* Dropdown menu */}
                 {dropdownOpen && (
                   <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-md">
                     <NavLink

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios"; //Axios is used to send a POST request to a backend API (http://localhost:8080/api/items) to save the item data.
+import { useNavigate} from "react-router-dom";
 
 function AddItem() {
-  
+
+  const navigate = useNavigate();
+
   const [item, setItem] = useState({
     name: "",
     category: "",
@@ -24,6 +27,7 @@ function AddItem() {
     axios.post("http://localhost:8080/api/items", item) //sends a POST request to the backend API at http://localhost:8080/api/items with the item object as the request body.
       .then((res) => {
         alert("Item added successfully ✅");
+        navigate("/dashboard");
         // Reset form after success
         setItem({
           name: "",
@@ -161,12 +165,13 @@ function AddItem() {
 
             {/* Lower part - text box */}
           <div className="w-full h-1/2 flex justify-center">
-            <p className="w-3/4 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600"
-            Tips for Inventory Management 
-            Set realistic minimum stock thresholds to avoid running out of essential items
-            Regularly update item details to keep your inventory accurate and organized
-            Group similar items in the same category for easier management            
-            ></p>
+            <p className="w-3/4 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600">
+              Tips for Inventory Management: <br />
+            - Set realistic minimum stock thresholds to avoid running out of essential items.<br />
+            - Regularly update item details to keep your inventory accurate and organized.<br />
+            - Group similar items in the same category for easier management.
+            </p>
+
           </div>
         </div>
       </div>
