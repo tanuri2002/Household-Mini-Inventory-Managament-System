@@ -40,12 +40,24 @@ function Dashboard() {
     // Navigate to update form or open a modal
   };
 
-  const handleDelete = (itemName) => {
-    if (window.confirm(`Are you sure you want to delete "${itemName}"?`)) {
-      alert(`Delete functionality for "${itemName}"`);
-      // Call API to delete the item(s)
+ const handleDelete = async (id) => {
+  try {
+    const response = await fetch(`http://localhost:8080/api/items/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete. Status: ${response.status}`);
     }
-  };
+
+    setItems(items.filter((item) => item.id !== id));
+    console.log("Item deleted successfully");
+  } catch (error) {
+    console.error("Error deleting item:", error);
+  }
+};
+
+
 
   return (
     <div>
@@ -115,7 +127,7 @@ function Dashboard() {
                       <FaTrash
                         size={18}
                         className="text-red-500 cursor-pointer hover:text-red-700"
-                        onClick={() => handleDelete(name)}
+                        onClick={() => handleDelete(item.id)}
                       />
                     </td>
                   </tr>
