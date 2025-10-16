@@ -8,23 +8,24 @@ on:
 
 jobs:
   backend:
-    name: Backend Build and Test 
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./backend
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+  runs-on: ubuntu-latest
+  defaults:
+    run:
+      working-directory: ./backend/demo
+  steps:
+    - uses: actions/checkout@v4
 
-      - name: Set up Java
-        uses: actions/setup-java@v4
-        with:
-          java-version: '19'
-          distribution: 'temurin'   
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: '19'
+        distribution: 'temurin'
 
-      - name: Build and Test with Maven
-        run: mvn clean verify
+    - name: Build with Maven
+      run: mvn clean package
+
+    - name: Run tests
+      run: mvn test
 
   frontend:
     name: Frontend Build and Test 
