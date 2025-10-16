@@ -25,18 +25,18 @@ jobs:
       - name: Build with Maven
         run: mvn clean package
 
-      - name: Run tests
+      - name: Run Backend Tests
         run: mvn test
 
   frontend:
     name: Frontend Build and Test
     runs-on: ubuntu-latest
+    needs: backend
     defaults:
       run:
         working-directory: ./frontend
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -46,8 +46,18 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build React app
-        run: CI=false npm run build
+      - name: Build React App
+        run: npm run build
 
-      - name: Run Unit Tests
+      - name: Install Firefox for Selenium
+        run: sudo apt-get update && sudo apt-get install firefox -y
+
+      - name: Install geckodriver
+        run: |
+          GECKO_VERSION=$(curl -s https://api.github.com/repos/mozilla/geckodriver/releases/latest | jq -r .tag_name)
+          wget https://github.com/mozilla/geckodriver/releases/download/$GECKO_VERSION/geckodriver-$GECKO_VERSION-linux64.tar.gz
+          tar -xvzf geckodriver-*.tar.gz
+          sudo mv geckodriver /usr/local/bin/
+
+      - name: Run Unit and UI Tests
         run: npm test -- --watchAll=false
