@@ -11,7 +11,9 @@ const login = (credentials) => {
     .post(`${API_URL}/login`, credentials)
     .then((response) => {
       if (response.data) {
-        localStorage.setItem("token", response.data);
+        // localStorage.setItem("token", response.data);
+         localStorage.setItem("token", response.data.token);
+        localStorage.setItem("username", response.data.username);
       }
       return response.data;
     });

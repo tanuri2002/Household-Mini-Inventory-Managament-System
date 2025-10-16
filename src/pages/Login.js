@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import userService from "../services/userService";
 import { useAuth } from "../context/AuthContext";
@@ -13,32 +14,36 @@ function Login() {
     setCredentials((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  console.log("SENDING:", credentials); // DEBUG
 
-    try {
-      const response = await userService.login(credentials);
+  try {
+    const response = await userService.login(credentials);
+    const { token } = response;
+    const decoded = jwtDecode(token);
+    const username = decoded.sub;
 
-      // assume your backend sends back { token, username }
-      const { token, username } = response;
-
-      // update context + localStorage
-      login(token, username);
-
-      alert("Login successful!");
-      navigate("/home");  
-    } catch (error) {
-      console.error("Login error:", error);
-      alert(
-        "Login failed: " +
-          (error.response?.data?.message || "Unknown error. Check console.")
-      );
-    }
-  };
+    login(token, username);
+    alert("Login successful!");
+    navigate("/home");
+  } catch (error) {
+    // ULTIMATE DEBUG - SHOW EVERYTHING!
+    console.error("FULL ERROR:", error);
+    console.error("STATUS:", error.response?.status);
+    console.error("MESSAGE:", error.response?.data?.message);
+    
+    alert(
+      `LOGIN FAILED!\n` +
+      `Status: ${error.response?.status || "NO RESPONSE"}\n` +
+      `Message: ${error.response?.data?.message || "Check console!"}`
+    );
+  }
+};
 
   return (
     <div className="flex h-screen bg-gray-100">
-      {/* Left side with image */}
+     
       <div className="w-1/2 flex justify-center items-center">
         <div className="w-80 h-80 flex justify-center items-center">
           <img
@@ -49,7 +54,7 @@ function Login() {
         </div>
       </div>
 
-      {/* Right side with login form */}
+    
       <div className="w-1/2 flex items-center justify-center bg-gray-50">
         <div className="w-3/4 max-w-md">
           <h2 className="text-teal-600 text-3xl font-bold mb-6">

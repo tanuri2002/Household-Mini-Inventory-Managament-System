@@ -36,7 +36,7 @@ const NavigationBar = () => {
   }, []);
 
   return (
-    <nav className="bg-teal-600 text-white shadow-md">
+    <nav className="fixed top-0 left-0 right-0 bg-teal-600 text-white shadow-md z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           {/* Logo */}
@@ -71,26 +71,26 @@ const NavigationBar = () => {
 
           {/* Menu items */}
           <div
-            className={`sm:flex sm:items-center ${isOpen ? "block" : "hidden"} space-x-2`}
+            className={`sm:flex sm:items-center ${isOpen ? "block" : "hidden"} space-x-2 font-semibold`}
           >
             <NavLink
               to="/homePg"
               className={({ isActive }) =>
                 (isActive ? "underline " : "") +
-                "block px-3 py-2 rounded hover:bg-gray-500"
+                "block px-3 py-2 rounded hover:bg-teal-500"
               }
             >
               Home
             </NavLink>
-            <NavLink
+            {/* <NavLink
               to="/about"
               className={({ isActive }) =>
                 (isActive ? "underline" : "") +
-                "block px-3 py-2 rounded hover:bg-gray-500"
+                "block px-3 py-2 rounded hover:bg-teal-500"
               }
             >
               About
-            </NavLink>
+            </NavLink> */}
 
             {/* Dashboard only visible after login */}
             {isLoggedIn && (
@@ -98,7 +98,7 @@ const NavigationBar = () => {
                 to="/dashboard"
                 className={({ isActive }) =>
                   (isActive ? "underline " : "") +
-                  "block px-3 py-2 rounded hover:bg-gray-500"
+                  "block px-3 py-2 rounded hover:bg-teal-500"
                 }
               >
                 Dashboard
@@ -112,7 +112,7 @@ const NavigationBar = () => {
                   to="/signup"
                   className={({ isActive }) =>
                     (isActive ? "underline " : "") +
-                    "block px-3 py-2 rounded hover:bg-gray-500"
+                    "block px-3 py-2 rounded hover:bg-teal-500"
                   }
                 >
                   Sign Up
@@ -121,7 +121,7 @@ const NavigationBar = () => {
                   to="/login"
                   className={({ isActive }) =>
                     (isActive ? "underline " : "") +
-                    "block px-3 py-2 rounded hover:bg-gray-500"
+                    "block px-3 py-2 rounded hover:bg-teal-500"
                   }
                 >
                   Login
@@ -134,17 +134,10 @@ const NavigationBar = () => {
                   className="px-3 py-2 rounded hover:bg-gray-500 flex items-center space-x-2"
                 >
                   <RiAccountCircleLine size={24} />
-                  <span>{username}</span>
+                  <span>{username || ""}</span>
                 </button>
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-md">
-                    <NavLink
-                      to="/profile"
-                      className="block px-4 py-2 hover:bg-gray-200"
-                      onClick={() => setDropdownOpen(false)}
-                    >
-                      Profile
-                    </NavLink>
+                  <div className="absolute right-0 mt-2 w-40 bg-white text-black rounded shadow-md">   
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 hover:bg-gray-200"

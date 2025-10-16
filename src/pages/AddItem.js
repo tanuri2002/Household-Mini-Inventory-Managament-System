@@ -15,16 +15,14 @@ function AddItem() {
     date: ""
   });
 
-  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setItem({ ...item, [name]: value });  //The spread operator (...) is a JavaScript feature (introduced in ES6) that expands an iterable (like an object or array) into its individual elements.
   };
 
-  // Handle form submit
   const handleSubmit = (e) => {
     e.preventDefault(); //Stops the browser’s default form submission behavior (e.g., page refresh or navigation)
-    axios.post("http://localhost:8080/api/items", item) //sends a POST request to the backend API at http://localhost:8080/api/items with the item object as the request body.
+    axios.post("http://localhost:8080/api/items", item) 
       .then((res) => {
         alert("Item added successfully ✅");
         navigate("/dashboard");
@@ -40,13 +38,13 @@ function AddItem() {
       })
       .catch((err) => {
         console.error(err);
-        alert("Error adding item ❌");
+        alert("Error adding item");
       });
   };
 
   return (
     <div>
-      <h1 className="text-xl font-medium text-teal-600 mb-4 mx-20 my-5">
+      <h1 className="text-xl font-semibold text-teal-600 mb-1 mx-44 my-10">
         Add New Item
       </h1>
 
@@ -94,7 +92,7 @@ function AddItem() {
               className="w-3/4 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600"
             />
 
-            <p>Price Per Unit</p>
+            <p>Total Price</p>
             <input
               type="number"
               name="price"
@@ -129,14 +127,14 @@ function AddItem() {
               className="w-3/4 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600"
             />
 
-            <div className="flex justify-center gap-4">
+            <div className="flex justify-end gap-2">
               <button
                 type="submit"
-                className="w-full bg-teal-600 text-white p-3 rounded-lg hover:bg-gray-500 transition"
+                className="w-1/4 bg-teal-600 text-white p-3 rounded-lg hover:bg-gray-500 transition"
               >Add Item</button>
               <button
                 type="button"
-                onClick={() =>  //Calls setItem to reset the item state to its initial values, clearing the form without submitting
+                onClick={() =>  
                   setItem({
                     name: "",
                     category: "",
@@ -146,15 +144,13 @@ function AddItem() {
                     date: ""
                   })
                 }
-                className="w-full bg-gray-400 text-white p-3 rounded-lg hover:bg-gray-500 transition"
+                className="w-1/ bg-gray-400 text-white p-3 rounded-lg hover:bg-gray-500 transition"
               >Cancel</button>
             </div>
           </form>
         </div>
-
-        {/* Right side - image */}
-        <div className="w-1/2 flex-col space-y-2 mx-1">
-           {/* Upper part - image */}
+       
+        <div className="w-1/2 flex-col space-y-2 mx-1">       
           <div className="w-full h-1/2 flex justify-center">
             <img
               src="/images/pic5.jpg"
@@ -162,8 +158,6 @@ function AddItem() {
               className="max-w-full max-h-[300px] rounded-lg shadow-lg"
             />
           </div>
-
-            {/* Lower part - text box */}
           <div className="w-full h-1/2 flex justify-center">
             <p className="w-3/4 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-600">
               Tips for Inventory Management: <br />
@@ -171,7 +165,6 @@ function AddItem() {
             - Regularly update item details to keep your inventory accurate and organized.<br />
             - Group similar items in the same category for easier management.
             </p>
-
           </div>
         </div>
       </div>

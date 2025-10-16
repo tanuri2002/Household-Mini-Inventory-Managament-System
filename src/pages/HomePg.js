@@ -3,9 +3,8 @@ import { FaBoxOpen, FaTags, FaSearch, FaEdit } from 'react-icons/fa';
 
 function HomePg() {
   return (
-    <div className="px-6 md:px-20 py-12">
+    <div className="px-6 md:px-20 py-12 pt-20">
 
-      {/* Hero Section */}
       <section className="text-center max-w-3xl mx-auto mb-16">
         <h1 className="text-4xl font-bold text-teal-600 mb-4">
           Keep Track of Everything You Own - Effortlessly
@@ -40,7 +39,7 @@ function HomePg() {
             Your household inventory is stored safely in the cloud, accessible from any device at any time.
           </p>
           <button className="bg-teal-500 text-white px-6 py-2 rounded-full hover:bg-teal-600">
-            Get Started
+            <a href="/signup">Get Started</a>
           </button>
         </div>
       </section>

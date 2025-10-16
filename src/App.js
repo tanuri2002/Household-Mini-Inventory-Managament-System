@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import './index.css'; 
 import HomePg from './pages/HomePg';
-import About from './pages/About';
+// import About from './pages/About';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import Home from './pages/Home';
@@ -21,7 +21,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePg />} />
           <Route path="/homepg" element={<HomePg />} />
-          <Route path="/about" element={<About />} />
+          {/* <Route path="/about" element={<About />} /> */}
           <Route path="/signup" element={<SignUp />} />
           <Route path="/login" element={<Login />} />
           <Route path="/home" element={<Home />} />
