@@ -58,6 +58,8 @@ public class UserService {
     }
 
     // Authenticate by email
+    // In UserService.java
+    // Authenticate by email - FIXED VERSION
     public User authenticateByEmail(String email, String password) {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -67,21 +69,4 @@ public class UserService {
         }
         return user;
     }
-
-//    public User authenticateByEmail(String email, String password) {
-//        try {
-//            User user = userRepository.findByEmail(email)
-//                    .orElseThrow(() -> new UsernameNotFoundException("Invalid credentials"));
-//
-//            if (!passwordEncoder.matches(password, user.getPassword())) {
-//                throw new BadCredentialsException("Invalid credentials");
-//            }
-//
-//            return user;
-//        } catch (Exception e) {
-//            // Return a generic message to avoid exposing sensitive info
-//            throw new BadCredentialsException("Invalid credentials");
-//        }
-//    }
-
 }
