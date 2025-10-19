@@ -40,5 +40,7 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=tanuri2002_Household-Mini-Inventory-Managament-System
+        run: |
+          cd Household-Mini-Inventory-Managament-System
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+            -Dsonar.projectKey=tanuri2002_Household-Mini-Inventory-Managament-System
