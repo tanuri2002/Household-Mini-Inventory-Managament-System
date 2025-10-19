@@ -41,7 +41,10 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -f backend/demo/pom.xml -B verify -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+        run: mvn -f backend/demo/pom.xml clean verify -B -DskipTests \
+          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
           -Dsonar.projectKey=tanuri2002 \
           -Dsonar.organization=tanuri2002 \
-          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
