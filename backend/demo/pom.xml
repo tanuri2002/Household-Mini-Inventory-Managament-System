@@ -21,6 +21,7 @@
         <java.version>19</java.version>
         <mockito.version>5.14.2</mockito.version>
         <maven.compiler.release>19</maven.compiler.release>
+        <sonar.organization>tanuri2002</sonar.organization>
     </properties>
 
     <dependencies>
