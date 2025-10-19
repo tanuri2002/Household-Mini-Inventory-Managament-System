@@ -42,4 +42,6 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -f backend/demo/pom.xml -B verify -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-          -Dsonar.projectKey=tanuri2002_Household-Mini-Inventory-Managament-System
+          -Dsonar.projectKey=tanuri2002 \
+          -Dsonar.organization=tanuri2002 \
+          -Dsonar.host.url=https://sonarcloud.io
