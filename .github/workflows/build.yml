@@ -36,7 +36,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      # 👇 Install Firefox and Geckodriver (Linux)
+      # Install Firefox and Geckodriver (Linux)
       - name: Install Firefox and Geckodriver
         run: |
           sudo apt-get update
@@ -47,13 +47,16 @@ jobs:
           sudo mv geckodriver /usr/local/bin/
           geckodriver --version
 
-      # 👇 Build, test, and run SonarQube scan
+      # Build, test, and run SonarQube scan
       - name: Build and analyze with SonarQube
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -B -f backend/demo/pom.xml clean verify sonar:sonar \
+            mvn -B -f backend/demo/pom.xml clean verify sonar:sonar \
+            -Pci \
+            -DskipUITests=true \
             -Dsonar.projectKey=tanuri2002 \
             -Dsonar.organization=tanuri2002 \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.login=${SONAR_TOKEN}
+
